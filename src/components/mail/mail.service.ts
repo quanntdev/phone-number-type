@@ -15,7 +15,7 @@ export class MailService {
   ) {
     await this.mailerService.sendMail({
       to: toUserEmail,
-      subject: 'Hapo CRM Forgot Password',
+      subject: 'Forgot Password',
       template: FORGOT_PASSWORD_TEMPLATES,
       context: {
         userName: toUserName,

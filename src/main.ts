@@ -22,7 +22,7 @@ async function bootstrap() {
 
   const options = new DocumentBuilder()
   .addBearerAuth()
-  .setTitle('Hapo crm')
+  .setTitle('Phone Type')
   .setDescription('The API description')
   .setVersion('1.0')
   .build();

@@ -2,10 +2,6 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as ormconfig from './ormconfig';
 import { ScheduleModule } from '@nestjs/schedule';
-import { AdminModule } from './components/admin/admin.module';
-import { UsersModule } from './components/users/users.module';
-import { AuthModule } from './components/auth/auth.module';
-import { ProfilesModule } from './components/profiles/profiles.module';
 import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
 import { join } from 'path';
 import * as path from 'path';
@@ -17,12 +13,8 @@ import { LogMiddleware } from './common/middlewares/logMiddleware.middleware';
 
 @Module({
   imports: [
-    AdminModule,
-    AuthModule,
     TypeOrmModule.forRoot(ormconfig),
     ScheduleModule.forRoot(),
-    UsersModule,
-    ProfilesModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
     }),
@@ -40,7 +32,7 @@ import { LogMiddleware } from './common/middlewares/logMiddleware.middleware';
           },
         },
         defaults: {
-          from: `"HAPO CRM" <${config.MAIL_USER}>`,
+          from: `"PHONE TYPE" <${config.MAIL_USER}>`,
         },
         template: {
           dir: join(__dirname, 'components/mail/templates/'),

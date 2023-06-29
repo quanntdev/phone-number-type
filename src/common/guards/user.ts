@@ -17,15 +17,6 @@ const validateKindUser = (user, kind) => {
   }
 };
 
-export class CustomerGuard extends AuthGuard('jwt') {
-  constructor() {
-    super();
-  }
-  handleRequest(err, user, info, context) {
-    validateKindUser(user, 'CUSTOMER');
-    return super.handleRequest(err, user, info, context);
-  }
-}
 export class AdminGuard extends AuthGuard('jwt') {
   constructor() {
     super();

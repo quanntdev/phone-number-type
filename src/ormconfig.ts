@@ -8,7 +8,7 @@ import 'reflect-metadata';
 // Check typeORM documentation for more information.
 const ormConfig: any = {
   type: 'mysql',
-  database: 'blog_api',
+  database: config.DB_NAME,
   //url: config.MYSQL_URL,
   username: config.DB_USERNAME,
   password: config.DB_PASSWORD,
