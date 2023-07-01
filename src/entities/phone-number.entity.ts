@@ -1,4 +1,4 @@
-import { CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn } from "typeorm";
+import { CreateDateColumn, DeleteDateColumn, Entity, Index, UpdateDateColumn } from "typeorm";
 import { ColumnInt, ColumnPrimaryKeyInt, ColumnString } from "./columns";
 
 @Entity('phone_number')
@@ -7,6 +7,7 @@ export class PhoneNumber {
     id: number;
 
     @ColumnString()
+    @Index('phone', { unique: true })
     phone: string;
 
     @ColumnInt()

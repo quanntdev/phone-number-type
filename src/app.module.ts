@@ -10,6 +10,7 @@ import { MailerModule, HandlebarsAdapter } from '@nest-modules/mailer';
 import config from './config';
 import { LangMiddleware } from './common/middlewares/langMiddleware.middleware';
 import { LogMiddleware } from './common/middlewares/logMiddleware.middleware';
+import { PhoneNumberModule } from './components/phone-number/phone-number.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { LogMiddleware } from './common/middlewares/logMiddleware.middleware';
         },
       })
     }),
+    PhoneNumberModule,
   ],
 })
 export class AppModule implements NestModule {
