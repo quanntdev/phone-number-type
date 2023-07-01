@@ -16,7 +16,6 @@ export const LOGS_FOLDER = 'files/logs';
 
 export const regexPhoneNumber = /(?:[-+() ]*\d){10,13}/gm;
 
-export const NEW_PASSWORD = 'hapo';
 export const FORGOT_PASSWORD_TEMPLATES = './forgot-password';
 
 export const extractEmails = (text: string) =>
