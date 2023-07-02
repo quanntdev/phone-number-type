@@ -34,6 +34,10 @@ export class PhoneNumberService {
         throw new BadRequestException('Cannot find Phone Number Operator');
       }
 
+      const checkPhone = await this.phoneNumberRepository.findOne({where: {phone: formattedPhone}})
+      if(checkPhone) {
+        throw new BadRequestException('This Phone has been created');
+      }
       const phoneData = {
         phone: formattedPhone,
         type_id: +phoneOperator,
@@ -60,7 +64,7 @@ export class PhoneNumberService {
         .createQueryBuilder('phone')
         .orderBy('phone.id', 'DESC')
         .skip(offset)
-        .limit(limit);
+        .take(limit);
 
       if (keyword) {
         data.andWhere(

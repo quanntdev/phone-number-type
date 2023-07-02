@@ -7,7 +7,6 @@ export class PhoneNumber {
     id: number;
 
     @ColumnString()
-    @Index('phone', { unique: true })
     phone: string;
 
     @ColumnInt()
