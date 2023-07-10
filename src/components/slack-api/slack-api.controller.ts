@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, Response } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Response , Res} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SlackApiService } from './slack-api.service';
 import { PaginationQuery } from 'src/common/dtos';
@@ -38,7 +38,7 @@ export class SlackApiController {
   }
 
   @Post("/events")
-  async handleEvent(@Body() body:any) {
+  async handleEvent(@Body() body:any, @Res() res:any) {
 
     console.log(body);
     // Process the event payload received from Slack
@@ -49,5 +49,7 @@ export class SlackApiController {
         // Process the received message from Slack here
       }
     }
+
+    return res.status(200).send();
   }
 }
