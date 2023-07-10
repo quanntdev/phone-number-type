@@ -75,7 +75,7 @@ export class PhoneNumberService {
           }),
         );
       }
-
+      
       const [phone, count] = await data.getManyAndCount();
       const response = new PaginationResponseWithTotalData<any>(
         phone,

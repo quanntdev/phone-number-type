@@ -11,6 +11,7 @@ import config from './config';
 import { LangMiddleware } from './common/middlewares/langMiddleware.middleware';
 import { LogMiddleware } from './common/middlewares/logMiddleware.middleware';
 import { PhoneNumberModule } from './components/phone-number/phone-number.module';
+import { SlackApiModule } from './components/slack-api/slack-api.module';
 
 @Module({
   imports: [
@@ -45,6 +46,8 @@ import { PhoneNumberModule } from './components/phone-number/phone-number.module
       })
     }),
     PhoneNumberModule,
+    SlackApiModule,
+    SlackApiModule
   ],
 })
 export class AppModule implements NestModule {
