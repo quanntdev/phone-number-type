@@ -40,7 +40,7 @@ export class SlackApiController {
   @Post("/events")
   async handleEvent(@Body() body:any) {
 
-
+    console.log(body);
     // Process the event payload received from Slack
     if (body.type === 'event_callback') {
       const event = body.event;
