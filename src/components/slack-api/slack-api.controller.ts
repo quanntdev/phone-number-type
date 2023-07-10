@@ -38,7 +38,7 @@ export class SlackApiController {
   }
 
   @Post("/events")
-  async handleEvent(@Body() body:any, @Response() res) {
+  async handleEvent(@Body() body:any) {
 
 
     // Process the event payload received from Slack
@@ -49,7 +49,5 @@ export class SlackApiController {
         // Process the received message from Slack here
       }
     }
-
-    return res.status(200).send();
   }
 }
