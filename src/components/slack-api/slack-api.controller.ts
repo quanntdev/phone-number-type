@@ -1,16 +1,21 @@
-import { Body, Controller, Get, Param, Post, Query, Response , Res} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post, Query , Req, Res, Response} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { SlackApiService } from './slack-api.service';
 import { PaginationQuery } from 'src/common/dtos';
 import { CreateSlackMessageDto } from './dto/create-slack-mes.dto';
 import { CreateChannelDto } from './dto/create-channel.dto';
+import { WebClient } from '@slack/web-api';
+import { RTMClient as LegacyRTMClient } from '@slack/rtm-api';
 
 @ApiTags('Slack API')
 @Controller('api/slack-api')
 export class SlackApiController {
-    constructor(private readonly slackAPIService: SlackApiService) {}
-
-  @Post()
+  
+    constructor(
+      @Inject('SLACK_EVENTS') private slackEvents: any,
+      private  slackAPIService: SlackApiService,
+    ) {}
+  @Post('/post-message')
   async sendMessage(
     @Body() body: CreateSlackMessageDto
   ) {
@@ -37,19 +42,13 @@ export class SlackApiController {
     return await this.slackAPIService.getListChannle()
   }
 
-  @Post("/events")
-  async handleEvent(@Body() body:any, @Res() res:any) {
-
-    console.log(body);
-    // Process the event payload received from Slack
-    if (body.type === 'event_callback') {
-      const event = body.event;
-      if (event.type === 'message' && event.channel === 'C05G59QF3DZ') {
-        console.log('Received message:', event.text);
-        // Process the received message from Slack here
-      }
+  @Post()
+  handleEvent(@Req() req, @Res() res) {
+    console.log(12)
+    const { body } = req;
+    const challenge = body.challenge;
+    if (challenge) {
+      res.status(200).send(challenge);
     }
-
-    return res.status(200).send();
   }
 }

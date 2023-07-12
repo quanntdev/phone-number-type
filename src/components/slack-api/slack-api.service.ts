@@ -1,13 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnModuleInit } from '@nestjs/common';
 import { WebClient } from '@slack/web-api';
 import { checkMysqlError } from 'src/common/validatorContraints/checkMysqlError';
 import { CreateSlackMessageDto } from './dto/create-slack-mes.dto';
 import { SUCCESS_CODES } from 'src/constants/successCodes';
 import { CreateChannelDto } from './dto/create-channel.dto';
+import { RTMClient as LegacyRTMClient } from '@slack/rtm-api';
 
 @Injectable()
-export class SlackApiService {
-  constructor(private readonly webClient: WebClient) {}
+export class SlackApiService implements OnModuleInit{
+  private rtmClient: LegacyRTMClient;
+  constructor(
+    private readonly webClient: WebClient
+    ) {
+      this.rtmClient = new LegacyRTMClient(process.env.SLACK_SIGNING_SERECT);
+    }
 
   async sendMess(body: CreateSlackMessageDto) {
     try {
@@ -100,4 +106,14 @@ export class SlackApiService {
       .replace(/--+/g, '-')
       .replace(/^-+|-+$/g, '');
   };
+
+  onModuleInit() {
+    this.rtmClient.on('message', async (event) => {
+     console.log(event)
+    });
+
+    this.rtmClient.start().catch((error) => {
+      console.error('Error connecting to Slack:', error);
+    });
+  }
 }

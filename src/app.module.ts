@@ -12,6 +12,7 @@ import { LangMiddleware } from './common/middlewares/langMiddleware.middleware';
 import { LogMiddleware } from './common/middlewares/logMiddleware.middleware';
 import { PhoneNumberModule } from './components/phone-number/phone-number.module';
 import { SlackApiModule } from './components/slack-api/slack-api.module';
+import { WebClient } from '@slack/web-api';
 
 @Module({
   imports: [
@@ -46,9 +47,14 @@ import { SlackApiModule } from './components/slack-api/slack-api.module';
       })
     }),
     PhoneNumberModule,
-    SlackApiModule,
-    SlackApiModule
+    SlackApiModule.register(config.SLACK_SIGNING_SERECT)
   ],
+  providers: [
+    {
+      provide: WebClient,
+      useValue: new WebClient(config.SLACK_BOT_TOKEN)
+    }
+  ]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
