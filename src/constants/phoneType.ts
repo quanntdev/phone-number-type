@@ -46,4 +46,4 @@ export const VIETTEL_PHONE = [
   '039',
 ];
 
-
+export const Hello = "hel";
