@@ -1,7 +1,7 @@
 name: CI - CD action for NestJS
 
 on:
-   push:
+   pull_request:
     branches: [ develop ]
 
 jobs:
