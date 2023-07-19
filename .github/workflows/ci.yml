@@ -17,11 +17,6 @@ jobs:
         with:
           node-version: "16"
           cache: "npm"
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
       - run: |
           npm install --force
           npm run build
