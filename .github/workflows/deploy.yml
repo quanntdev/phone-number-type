@@ -1,0 +1,52 @@
+name: Deploy action for NestJS
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy_note:
+        description: 'Write down your note for this deploy version'
+        required: true
+        default: 'Deploy to staging server' 
+      deploy_branch:
+        description: 'Type branch name'
+        required: true
+        default: 'develop'
+jobs:
+  nextjs-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'npm'
+      - run: |
+          npm install --force
+          npm run build
+
+  # Auto deploy to Staging server
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: nextjs-ci
+    if: github.ref == 'refs/heads/${{ github.event.inputs.deploy_branch }}'
+    steps:
+    - name: Deploy Web Stg
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.WEB_SERVER_STG_HOST }}
+        username: "owl"
+        key: ${{ secrets.WEB_SERVER_STG_KEY }}
+        port: 22
+        script_stop: true
+        script: |
+          cd PhoneType/PhoneTypeAPI
+          git fetch origin ${{ github.event.inputs.deploy_branch }}
+          git checkout -f
+          git checkout ${{ github.event.inputs.deploy_branch }}
+          git pull origin ${{ github.event.inputs.deploy_branch }}
+          npm install --force
+          npm run build
+          pm2 reload ecosystem.config.js

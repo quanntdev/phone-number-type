@@ -21,3 +21,5 @@ export const FORGOT_PASSWORD_TEMPLATES = './forgot-password';
 export const extractEmails = (text: string) =>
   text.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi);
 
+
+export const deg = '234'
