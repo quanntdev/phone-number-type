@@ -1,14 +1,8 @@
 name: CI - CD action for NestJS
 
 on:
-  push:
-    branches:
-      - dev
-      - prd
-  pull_request:
-    branches:
-      - dev
-      - prd
+   push:
+    branches: [ develop ]
 
 jobs:
   nextjs-ci:
