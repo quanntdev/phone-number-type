@@ -21,6 +21,13 @@ export class PhoneNumberController {
     return await this.phoneNumberService.create(body);
   }
 
+  @Post("/test-actions")
+  async createAction(
+    @Body() body: CreatePhoneNumberDto,
+  ) {
+    return await this.phoneNumberService.create(body);
+  }
+
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
