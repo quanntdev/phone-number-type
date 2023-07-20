@@ -23,7 +23,7 @@ jobs:
           node-version: '18'
           cache: 'npm'
       - run: |
-          npm install --legacy-peer-deps
+          npm install
           npm run build
 
   # Auto deploy to Staging server
