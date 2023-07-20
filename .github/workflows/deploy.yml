@@ -45,6 +45,6 @@ jobs:
           git checkout -f
           git checkout ${{ github.event.inputs.deploy_branch }}
           git pull origin ${{ github.event.inputs.deploy_branch }}
-          # npm install --legacy-peer-deps
-          # npm run build
+          npm install --legacy-peer-deps
+          npm run build
           pm2 reload ecosystem.config.js
