@@ -31,10 +31,13 @@ jobs:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - name: Read .nvmrc
+      run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
+      id: nvm
+    - name: Use Node.js (.nvmrc)
+      uses: actions/setup-node@v1
       with:
-        node-version: 18
+        node-version: "${{ steps.nvm.outputs.NVMRC }}"
     - name: Deploy Web Stg
       uses: appleboy/ssh-action@master
       with:
