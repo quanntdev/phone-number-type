@@ -31,10 +31,13 @@ jobs:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
     - name: Deploy Web Stg
       uses: appleboy/ssh-action@master
       with:
-        node-version: '18'
         host: ${{ secrets.HOST }}
         username: "root"
         key: ${{ secrets.PRIVATE_KEY }}
