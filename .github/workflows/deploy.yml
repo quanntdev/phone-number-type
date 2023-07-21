@@ -30,6 +30,7 @@ jobs:
   deploy-staging:
     name: Deploy to Staging
     runs-on: ubuntu-latest
+    needs: nextjs-ci
     steps:
     - name: Read .nvmrc
       run: echo "##[set-output name=NVMRC;]$(cat .nvmrc)"
@@ -52,7 +53,6 @@ jobs:
           git checkout -f
           git checkout ${{ github.event.inputs.deploy_branch }}
           git pull origin ${{ github.event.inputs.deploy_branch }}
-          npm install npm@latest -g
-          npm install --legacy-peer-deps
+          npm install --force
           npm run build
           pm2 reload ecosystem.config.js
