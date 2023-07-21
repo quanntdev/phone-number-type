@@ -35,6 +35,10 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: 18
+    - name: Setup npm
+      with:
+        script: |
+          npm install npm@latest -g
     - name: Deploy Web Stg
       uses: appleboy/ssh-action@master
       with:
