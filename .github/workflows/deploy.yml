@@ -23,8 +23,6 @@ jobs:
           node-version: '18'
           cache: 'npm'
       - run: |
-          vnm use 18
-          npm install npm@latest -g
           npm install --force
           npm run build
 
@@ -36,6 +34,7 @@ jobs:
     - name: Deploy Web Stg
       uses: appleboy/ssh-action@master
       with:
+        node-version: '18'
         host: ${{ secrets.HOST }}
         username: "root"
         key: ${{ secrets.PRIVATE_KEY }}
@@ -47,8 +46,6 @@ jobs:
           git checkout -f
           git checkout ${{ github.event.inputs.deploy_branch }}
           git pull origin ${{ github.event.inputs.deploy_branch }}
-          vnm use 18
-          npm install npm@latest -g
           npm install --legacy-peer-deps
           npm run build
           pm2 reload ecosystem.config.js
