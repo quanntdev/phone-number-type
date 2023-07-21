@@ -31,6 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: nextjs-ci
     steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
     - name: Deploy Web Stg
       uses: appleboy/ssh-action@master
       with:
