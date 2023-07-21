@@ -23,6 +23,7 @@ jobs:
           node-version: '18'
           cache: 'npm'
       - run: |
+          vnm use 18
           npm install npm@latest -g
           npm install --force
           npm run build
@@ -46,6 +47,7 @@ jobs:
           git checkout -f
           git checkout ${{ github.event.inputs.deploy_branch }}
           git pull origin ${{ github.event.inputs.deploy_branch }}
+          vnm use 18
           npm install npm@latest -g
           npm install --legacy-peer-deps
           npm run build
