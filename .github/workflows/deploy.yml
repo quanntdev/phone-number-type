@@ -40,6 +40,7 @@ jobs:
         key: ${{ secrets.PRIVATE_KEY }}
         port: 22
         script_stop: true
+        node-version: 16
         script: |
           cd PhoneType/PhoneTypeAPI
           git fetch origin ${{ github.event.inputs.deploy_branch }}
