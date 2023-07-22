@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: 18
       - run: |
           npm install --force
           npm run build
@@ -40,7 +40,6 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script_stop: true
-          node-version: 16
           script: |
             cd PhoneType/PhoneTypeAPI
             git fetch origin ${{ github.event.inputs.deploy_branch }}
