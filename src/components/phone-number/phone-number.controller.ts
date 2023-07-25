@@ -32,7 +32,7 @@ export class PhoneNumberController {
   async createAction2(
     @Body() body: CreatePhoneNumberDto2,
   ) {
-    return await body;
+    return await body?.items[0];
   }
 
 
