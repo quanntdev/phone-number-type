@@ -9,3 +9,8 @@ export class CreatePhoneNumberDto {
   @ApiProperty({ example: '0123456789' })
   phone: string;
 }
+
+export class CreatePhoneNumberDto2 {
+  @ApiProperty({ type: [String] })
+  items: string[];
+}
