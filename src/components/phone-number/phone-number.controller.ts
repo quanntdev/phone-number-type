@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/commo
 import { ApiTags } from '@nestjs/swagger';
 import { PhoneNumberService } from './phone-number.service';
 import { PaginationQuery } from 'src/common/dtos';
-import { CreatePhoneNumberDto } from './dto/create-phone-number.dto';
+import { CreatePhoneNumberDto, CreatePhoneNumberDto2 } from './dto/create-phone-number.dto';
 
 @ApiTags('Phone Number')
 @Controller('api/phone-number')
@@ -30,9 +30,9 @@ export class PhoneNumberController {
 
   @Post("/test-actions-2")
   async createAction2(
-    @Body() body: CreatePhoneNumberDto,
+    @Body() body: CreatePhoneNumberDto2,
   ) {
-    return await this.phoneNumberService.create(body);
+    return await body;
   }
 
 
